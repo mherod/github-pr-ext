@@ -7,13 +7,13 @@ function findDiff(element) {
 }
 
 function onPageScroll() {
-    for (let elementsByClassNameElement of document.getElementsByClassName("mr-1 js-reviewed-checkbox")) {
-        let diff = findDiff(elementsByClassNameElement)
-        let checked = elementsByClassNameElement.hasAttribute("checked")
+    for (let viewedCheckboxElement of document.getElementsByClassName("mr-1 js-reviewed-checkbox")) {
+        let diff = findDiff(viewedCheckboxElement)
+        let checked = viewedCheckboxElement.hasAttribute("checked")
         if (!checked) {
-            let hidden = document.querySelector(diff + " > div.js-file-content.Details-content--hidden > div")
+            let hidden = document.querySelector("#" + diff + " > div.js-file-content.Details-content--hidden > div")
             if (hidden != null && hidden.innerHTML != null && hidden.innerHTML.indexOf("Whitespace-only changes") > -1) {
-                elementsByClassNameElement.click()
+                viewedCheckboxElement.click()
             }
         }
     }
@@ -36,7 +36,7 @@ function onPageReady() {
         setInterval(function () {
             clearInterval(debounced);
             onPageScroll();
-        }, 3000);
+        }, 1000);
     }
 }
 
