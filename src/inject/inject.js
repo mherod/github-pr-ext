@@ -19,8 +19,7 @@ function onPageScroll() {
     }
 }
 
-function onPageReady() {
-
+function checkLocationForRedirect() {
     let location = window.location.href;
     console.log("href: " + location)
     if (location.indexOf("pull") > -1 && location.indexOf("files") > -1) {
@@ -30,6 +29,11 @@ function onPageReady() {
             window.location = location + a + "w=1"
         }
     }
+}
+
+function onPageReady() {
+
+    checkLocationForRedirect();
 
     const debounced = null
     document.onscroll = () => {
@@ -38,6 +42,9 @@ function onPageReady() {
             onPageScroll();
         }, 1000);
     }
+    window.addEventListener('locationchange', function(){
+        checkLocationForRedirect()
+    })
 }
 
 chrome.extension.sendMessage({}, function (response) {
